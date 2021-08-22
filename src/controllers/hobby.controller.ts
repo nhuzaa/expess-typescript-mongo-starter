@@ -33,6 +33,17 @@ class HobbyController {
 
   public getHobbyById = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const hobbyId: string = req.params.hobbyid;
+      const h: Hobby = await this.hobbyService.findHobbyById(hobbyId);
+
+      res.status(200).json({ data: h, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getHobbiesOfUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
       const userId: string = req.params.userid;
       
       const findOneUserData: User = await this.userService.findUserById(userId);
@@ -42,12 +53,34 @@ class HobbyController {
         res.status(201).json({ data: hobbiesData, message: 'found' });
 
       }
-      res.status(400).json({ data: {'data': 'none'}, message: 'none' });
+      res.status(400).json({ data: { data: 'none' }, message: 'none' });
     } catch (error) {
       next(error);
     }
   };
 
+  public updateHobbyById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const hobbyId: string = req.params.hobbyid;
+      const hobbyData = req.body;
+      const h: Hobby = await this.hobbyService.updateHobby(hobbyId, hobbyData);
+
+      res.status(201).json({ data: h, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteHobbyById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const hobbyId: string = req.params.hobbyid;
+      const h: Hobby = await this.hobbyService.deleteHobby(hobbyId);
+
+      res.status(200).json({ data: h, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default HobbyController;

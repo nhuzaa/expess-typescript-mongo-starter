@@ -136,8 +136,73 @@ paths:
         500:
           description: 'Server Error'
 
+# [GET] Get Hobby ID
+  /hobby/{hobbyid}:
+    get:
+      tags:
+      - hobbies 
+      summary: Find hobby By Id
+      parameters:
+      - name: hobbyid 
+        in: path
+        description: Hobby Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [PUT] Update Hobby 
+    put:
+      tags:
+      - hobbies 
+      summary: Update Hobby By Id
+      parameters:
+      - name: hobbyid 
+        in: path
+        description: Hobby Id
+        required: true
+      - name: body
+        in: body
+        description: Hobby Data
+        required: true
+        schema:
+          $ref: '#/definitions/hobbies'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] hobby/id
+    delete:
+      tags:
+      - hobbies 
+      summary: Delete hobby By Id
+      parameters:
+      - name: hobbyid
+        in: path
+        description: Hobby Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+
+
 # [GET] Hobbies By UserID
-  /hobby/{userid}:
+  /hobby/user/{userid}:
     get:
       tags:
       - hobbies 
@@ -184,7 +249,7 @@ definitions:
       name :
         type: string
         description: name 
-      date:
+      year:
         type: date
         description: date
       user:

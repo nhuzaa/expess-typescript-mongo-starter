@@ -4,6 +4,6 @@ export interface Hobby {
   passionLevel: string;
   name: string;
   year: Date;
-  user: any;
+  user: string;
 }
 
