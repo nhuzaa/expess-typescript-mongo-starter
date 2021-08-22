@@ -1,0 +1,19 @@
+{
+    "env": "development",
+    "dbConfig": {
+        "host": "mongo",
+        "database": "mongoose",
+        "port": 27017,
+        "username": "admin",
+        "password": "admin"
+    },
+    "secretKey": "secretKey",
+    "log": {
+        "format": "dev",
+        "dir": "../logs"
+    },
+    "cors": {
+        "origin": true,
+        "credentials": true
+    }
+}

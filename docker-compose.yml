@@ -1,0 +1,67 @@
+version: '3.7'
+
+services:
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: 'unless-stopped'
+    networks:
+      - backend
+  server:
+    build:
+      context: ./
+      target: development-build-stage
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - '8848:3000'
+    environment:
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      MONGO_DATABASE: mongoose
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: 'unless-stopped'
+    networks:
+      - backend
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodbexpress
+    restart: always
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ADMINUSERNAME} 
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ADMINPASSWORD} 
+    ports:
+      - "0.0.0.0:27017:${MONGODB_PORT}"
+    networks:
+      - backend
+    volumes:
+      - type: volume
+        source: MONGO_DATA_EXPRESS
+        target: /data/db
+      - type: volume
+        source: MONGO_CONFIG_EXPRESS
+        target: /data/configdb
+
+volumes:
+  MONGO_DATA_EXPRESS:
+    name: MONGO_DATA_EXPRESS
+  MONGO_CONFIG_EXPRESS:
+    name: MONGO_CONFIG_EXPRESS
+
+networks:
+  backend:
+    driver: bridge
+
+#volumes:
+  #data:
+    #driver: local
