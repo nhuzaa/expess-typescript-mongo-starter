@@ -34,9 +34,13 @@ class HobbyService {
   }
 
   public async updateHobby(hobbyId: string, hobbyData: CreateHobbiesDto): Promise<Hobby> {
+
+    console.log('createhobby', hobbyData);
     if (isEmpty(hobbyData)) throw new HttpException(400, "You're not HobbyData");
 
-    const updateHobbyById: Hobby = await this.hobbies.findByIdAndUpdate(hobbyId, { hobbyData });
+    const updateHobbyById: Hobby = await this.hobbies.findByIdAndUpdate(hobbyId, { hobbyData }, { new: true, runValidator: true });
+    console.log('updated', updateHobbyById);
+
     if (!updateHobbyById) throw new HttpException(409, "You're not Hobby");
 
     return updateHobbyById;

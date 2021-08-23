@@ -253,7 +253,7 @@ definitions:
         type: date
         description: date
       user:
-        type: users
+        type: string 
         description: user id
 
 schemes:

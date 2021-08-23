@@ -5,7 +5,7 @@ const hobbySchema: Schema = new Schema({
   passionLevel: {
     type: String,
     required: true,
-    unique: false,
+    enum: ['Low', 'Medium', 'High', 'Very-High']
   },
   name: {
     type: String,
