@@ -38,7 +38,7 @@ class HobbyService {
     console.log('createhobby', hobbyData);
     if (isEmpty(hobbyData)) throw new HttpException(400, "You're not HobbyData");
 
-    const updateHobbyById: Hobby = await this.hobbies.findByIdAndUpdate(hobbyId, { hobbyData }, { new: true});
+    const updateHobbyById: Hobby = await this.hobbies.findByIdAndUpdate(hobbyId,  hobbyData, { new: true});
     console.log('updated', updateHobbyById);
 
     if (!updateHobbyById) throw new HttpException(409, "You're not Hobby");

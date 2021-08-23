@@ -47,7 +47,7 @@ class UserService {
       userData = { ...userData, password: hashedPassword };
     }
 
-    const updateUserById: User = await this.users.findOneAndUpdate({ _id: userId }, { userData }, { new: true });
+    const updateUserById: User = await this.users.findOneAndUpdate({ _id: userId },  userData, { new: true });
     if (!updateUserById) throw new HttpException(409, "You're not user");
 
     return updateUserById;
