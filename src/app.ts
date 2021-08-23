@@ -51,7 +51,7 @@ class App {
       set('debug', true);
     }
 
-    console.log('dbConnection', dbConnection.url, dbConnection.options);
+    //console.log('dbConnection', dbConnection.url, dbConnection.options);
     connect(dbConnection.url, dbConnection.options);
   }
 

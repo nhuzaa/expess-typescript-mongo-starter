@@ -13,7 +13,6 @@ const hobbySchema: Schema = new Schema({
   },
   year: {
     type: Date,
-    required: false,
   },
   user: {
     type: Schema.Types.ObjectId,
