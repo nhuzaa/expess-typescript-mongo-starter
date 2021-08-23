@@ -48,7 +48,7 @@ describe('Testing Hobby', () => {
   });
 
   describe('[GET] /hobby/:hobbyid', () => {
-    it('response findOne User', async () => {
+    it('response findOne hobby', async () => {
       const hobbyId = 'qpwoeirutysdfdf';
 
       const hobbiesRoute = new HobbyRoute();
@@ -65,6 +65,35 @@ describe('Testing Hobby', () => {
       (mongoose as any).connect = jest.fn();
       const app = new App([hobbiesRoute]);
       return request(app.getServer()).get(`${hobbiesRoute.path}/${hobbyId}`).expect(200);
+    });
+  });
+
+  describe('[POST] /hobby', () => {
+    it('response create hobby', async () => {
+
+      const hobbyData: CreateHobbiesDto = {
+          passionLevel: 'High',
+          name: 'swingin',
+          user: '612290bb39bc420290284d5c',
+          year: new Date('2013-03-01T00:00:00.000Z'),
+      }
+
+      const hobbyId = 'qpwoeirutysdfdf';
+
+      const hobbiesRoute = new HobbyRoute();
+      const hobbies = hobbiesRoute.hobbyController.hobbyService.hobbies;
+
+      hobbies.findOne = jest.fn().mockReturnValue({
+          _id: hobbyId,
+          passionLevel: hobbyData.passionLevel,
+          name: hobbyData.name,
+          user: hobbyData.user,
+          year: hobbyData.year,
+        });
+
+      (mongoose as any).connect = jest.fn();
+      const app = new App([hobbiesRoute]);
+      return request(app.getServer()).get(`${hobbiesRoute.path}`).send(hobbyData).expect(200);
     });
   });
 
