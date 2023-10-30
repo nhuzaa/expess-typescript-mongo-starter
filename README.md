@@ -7,6 +7,7 @@
 - [NPM](https://docs.npmjs.com/getting-started/installing-node)
 - [Docker](https://docs.docker.com/engine/install/ubuntu/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+- [MongoDB](https://docs.docker.com/compose/install/)
 
 ## Setup
 
